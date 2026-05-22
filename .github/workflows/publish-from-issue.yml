@@ -9,6 +9,7 @@ on:
 permissions:
   contents: write # commit the generated post
   issues: write # comment back on the issue
+  actions: write # trigger the deploy workflow
 
 jobs:
   publish:
@@ -72,3 +73,16 @@ jobs:
             });
         env:
           SLUG: ${{ steps.convert.outputs.slug }}
+
+      - name: Trigger site deploy
+        uses: actions/github-script@v7
+        with:
+          # A commit pushed with GITHUB_TOKEN does not start other workflows,
+          # so the deploy workflow is dispatched explicitly here.
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'deploy.yml',
+              ref: 'main',
+            });

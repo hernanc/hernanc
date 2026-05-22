@@ -25,7 +25,7 @@ export const NAV: { label: string; path: string }[] = [
 // STUB: replace the placeholder handles with your real profiles.
 export const SOCIALS: { label: string; href: string }[] = [
   { label: 'GitHub', href: 'https://github.com/hernanc' }, // STUB
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/hernanc' }, // STUB
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/hcalabrese' },
   { label: 'X', href: 'https://x.com/hernanc' }, // STUB
   { label: 'Email', href: 'mailto:hernancalabrese@gmail.com' },
 ];

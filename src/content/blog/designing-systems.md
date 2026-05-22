@@ -1,36 +1,38 @@
 ---
 title: "Designing Systems That Survive Contact With Production"
-description: "Reliability isn't a feature you add at the end. It's a set of decisions you make early — and most of them are about what happens when things go wrong."
+description: "Reliability comes from decisions made early in a design, and most of those decisions are about what happens when something goes wrong."
 pubDate: 2025-11-30
 tags: ["systems", "reliability", "engineering"]
 draft: false
 ---
 
-Every system works on the happy path. The interesting question — the one that
-separates a prototype from something you can put your name on — is what happens
-the moment reality stops cooperating: a slow dependency, a partial deploy, a
-burst of traffic three times larger than your last capacity test.
+Every system works on the happy path. What separates a prototype from
+production code is how it behaves when reality stops cooperating. A dependency
+gets slow. A deploy goes out half finished. Traffic spikes to three times your
+last capacity test.
 
-The systems that survive aren't the ones that never fail. They're the ones that
-fail in small, predictable, recoverable ways.
+No system avoids failure forever. The ones that last fail in small ways you can
+predict and recover from.
 
 ## Make failure a first-class case
 
-The most common design mistake is treating errors as an afterthought — a
-`catch` block bolted on once the feature "works." Instead, sketch the failure
-modes before you write the happy path.
+A common mistake is to treat errors as an afterthought, a `catch` block added
+once the feature works. It pays off to sketch the failure modes before you
+write the happy path.
 
 ![A request travels through a gateway and a service to a datastore; a timeout triggers a bounded retry.](../../assets/posts/designing-systems/request-path.svg)
 
-For every dependency, ask three questions: What happens if it's *slow*? What
-happens if it's *down*? What happens if it returns something *wrong*? Each
-answer is a design decision, not an accident.
+For every dependency, work through a few questions. What happens if it gets
+slow? What happens if it goes down? What happens if it returns something wrong
+but plausible? Each answer is a design decision. If you don't make it on
+purpose, the system makes it for you.
 
 ## Bound everything
 
-Unbounded work is the root of most production incidents. A retry without a
-limit becomes a retry storm. A queue without a ceiling becomes an
-out-of-memory crash. A request without a deadline becomes a thread leak.
+A lot of production incidents come down to work that was never bounded. A retry
+with no limit turns into a retry storm. A queue with no ceiling runs the
+process out of memory. A request with no deadline leaks the thread waiting on
+it.
 
 ```ts
 async function callDependency<T>(fn: () => Promise<T>): Promise<T> {
@@ -42,27 +44,28 @@ async function callDependency<T>(fn: () => Promise<T>): Promise<T> {
       return await fn();
     } catch (err) {
       if (++attempt >= 3 || deadline.aborted) throw err;
-      // Exponential backoff with jitter — never a tight loop.
+      // Exponential backoff with jitter, so this never becomes a tight loop.
       await sleep(2 ** attempt * 100 + Math.random() * 100);
     }
   }
 }
 ```
 
-The numbers matter less than the principle: every loop has an exit, every wait
-has a ceiling, every call has a deadline.
+The specific numbers matter less than the habit behind them: give every loop an
+exit, every wait a ceiling, and every blocking call a deadline.
 
-## Design for the operator, not just the user
+## Design for the operator
 
-Six months from now, someone — possibly you — will be staring at this system
-at 3 a.m. They will not have the context you have today. The logs, metrics,
-and error messages you write now are a letter to that person.
+Six months from now, someone will be looking at this system at 3 a.m., and it
+might be you. That person will not have the context you have while writing the
+code today. The logs, metrics, and error messages you add now are the only
+notes they get.
 
-A good system tells you *why* it's unhealthy, not just *that* it is. That's a
-design property, and like all design properties, it's far cheaper to build in
-than to retrofit.
+A good system tells you why it is unhealthy, not just that something is wrong.
+That kind of observability is far cheaper to build in while you design than to
+bolt on afterwards.
 
 ---
 
-*This is a sample post — placeholder content for the new blog. Replace it, or
-publish a real article straight from a GitHub issue.*
+*This is a sample post with placeholder content. Replace it, or publish a real
+article straight from a GitHub issue.*

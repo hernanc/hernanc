@@ -1,12 +1,11 @@
 // Base-path-aware URL helper.
 //
-// With `base: '/hernanc'` in astro.config.mjs, Astro does NOT automatically
-// prefix hand-written `href`/`src` strings. Every internal link in this
-// project goes through `href()` so the site works both locally and on
-// GitHub Pages — and so a future repo rename / custom domain only requires
-// changing `base` in astro.config.mjs.
+// Astro does NOT automatically prefix hand-written `href`/`src` strings with
+// the configured `base`. Every internal link in this project goes through
+// `href()`, so changing `base` in astro.config.mjs (e.g. for sub-path
+// hosting or a custom domain) is the only edit ever needed.
 
-const BASE = import.meta.env.BASE_URL; // e.g. "/hernanc/"
+const BASE = import.meta.env.BASE_URL; // the configured base path, e.g. "/"
 
 /** Build an internal URL that respects the configured base path. */
 export function href(path = '/'): string {

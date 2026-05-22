@@ -17,13 +17,11 @@ entirely from **GitHub issues**.
 
 ```bash
 npm install
-npm run dev      # http://localhost:4321/hernanc
+npm run dev      # http://localhost:4321
 npm run build    # production build → dist/
-npm run preview  # serve the built site at the real base path
+npm run preview  # serve the built site locally
 npm run check    # type + content schema checks
 ```
-
-> The site is served under the `/hernanc` base path — see *Deployment* below.
 
 ## Writing a post
 
@@ -51,21 +49,15 @@ a Markdown file in `src/content/blog/`.
 - Create a repository label named **`publish`** (used to trigger publishing).
 - Merge this branch into `main` — both workflows are wired to `main`.
 
-## Deployment & base path
+## Deployment
 
-This repo is `hernanc/hernanc`, so GitHub Pages serves the site at
-`https://hernanc.github.io/hernanc`. That base path is set once in
-[`astro.config.mjs`](astro.config.mjs) (`site` + `base`), and every internal
-link goes through the `href()` helper in `src/lib/url.ts`.
+This is the `hernanc.github.io` GitHub Pages **user site**, served at the apex
+`https://hernanc.github.io`. The `site` and `base` values in
+[`astro.config.mjs`](astro.config.mjs) are the only place URLs are configured;
+every internal link goes through the `href()` helper in `src/lib/url.ts`.
 
-To move the site:
-
-- **Root user site** — rename the repo to `hernanc.github.io`, then set
-  `base: '/'` in `astro.config.mjs`.
-- **Custom domain** — add `public/CNAME` containing the domain, set
-  `site` to that domain, and set `base: '/'`.
-
-No link edits are needed in either case.
+- **Custom domain** — add `public/CNAME` containing the domain and point
+  `site` at it in `astro.config.mjs`. No link edits are needed.
 
 ## Stubs to personalize
 

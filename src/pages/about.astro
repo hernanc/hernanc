@@ -2,19 +2,19 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE, SOCIALS } from '../consts';
 
-// STUB: this page is polished placeholder copy. Replace the bracketed
-// specifics and the "Selected work" list with your real details.
+// STUB: this page is placeholder copy. Replace it and the "Selected work"
+// list with your real details.
 const selectedWork = [
   {
-    title: 'STUB — Flagship project',
+    title: 'STUB: Flagship project',
     note: 'A short, concrete line: what it did and the scale it ran at.',
   },
   {
-    title: 'STUB — AI system',
-    note: 'Research-grade ML taken to dependable production.',
+    title: 'STUB: AI system',
+    note: 'Machine learning taken from research into dependable production.',
   },
   {
-    title: 'STUB — Open source / writing',
+    title: 'STUB: Open source or writing',
     note: 'A library, tool, or talk you are known for.',
   },
 ];
@@ -22,7 +22,7 @@ const selectedWork = [
 
 <BaseLayout
   title="About"
-  description={`About ${SITE.author} — software and AI engineer.`}
+  description={`About ${SITE.author}, a software and AI engineer.`}
 >
   <section class="about">
     <header class="about-head">
@@ -32,26 +32,24 @@ const selectedWork = [
 
     <div class="about-body">
       <p class="lead">
-        I'm a software and AI engineer who builds systems where rigorous
-        engineering meets frontier machine intelligence.
+        I'm a software and AI engineer, and I've spent my career building
+        systems that have to work under real load.
       </p>
 
       <p>
-        My work spans distributed systems, applied machine learning, and the
-        developer tooling in between. I've taken products from a blank
-        repository to something used by millions, owned services where
-        correctness and latency are non-negotiable, and helped teams make —
-        and survive — hard technical bets. I'm equally at home in a design
-        review arguing about an interface and in a profiler chasing a
-        regression.
+        I've worked on distributed systems, applied machine learning, and the
+        developer tools in between. I've taken products from an empty
+        repository to real scale, and owned services where a slow response or
+        a wrong answer isn't acceptable. Some weeks the job is a design review
+        and a long argument about an interface. Other weeks it's a profiler
+        and an afternoon spent chasing one regression.
       </p>
 
       <p>
-        What I care about is craft: software that is correct, fast, and a
-        pleasure to extend. I believe the best systems are the ones a new
-        engineer can understand in an afternoon, and that taste in
-        engineering is a skill you can practice. This site is where I write
-        about that practice.
+        The thread through all of it is craft. I think the best systems are
+        the ones a new engineer can understand in an afternoon, and that good
+        judgement in engineering is something you build with reps rather than
+        something you're born with. This site is where I write about that.
       </p>
 
       <h2 class="about-section">Selected work</h2>

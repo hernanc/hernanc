@@ -3,14 +3,14 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 // GitHub Pages note:
-// This is the `hernanc.github.io` user site, served at the apex
-// https://hernanc.github.io — hence `base: '/'`.
-// For a custom domain, add `public/CNAME` and point `site` at the domain.
-// Internal links go through the `href()` helper in src/lib/url.ts, so `site`
-// and `base` are the only values that ever need to change.
+// TEMPORARY — `base` is '/hernanc' so the site previews as a project site at
+// https://hernanc.github.io/hernanc while the repo is still named
+// `hernanc/hernanc`. After the repo is renamed to `hernanc.github.io` (a user
+// site served at the apex https://hernanc.github.io), set `base` back to '/'.
+// Internal links go through the `href()` helper in src/lib/url.ts.
 export default defineConfig({
   site: 'https://hernanc.github.io',
-  base: '/',
+  base: '/hernanc',
   trailingSlash: 'ignore',
   integrations: [sitemap()],
   markdown: {

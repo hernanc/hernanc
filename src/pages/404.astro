@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { href } from '../lib/url';
+---
+
+<BaseLayout title="Page not found" description="This page could not be found.">
+  <section class="notfound">
+    <p class="eyebrow">404</p>
+    <h1 class="notfound-title">This page wandered off</h1>
+    <p class="notfound-text">
+      The page you're looking for doesn't exist — or has moved.
+    </p>
+    <div class="notfound-links">
+      <a href={href('/')}>Home</a>
+      <a href={href('/blog')}>Writing</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    padding-block: var(--space-12);
+    text-align: center;
+  }
+
+  .notfound-title {
+    margin-top: var(--space-3);
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    font-weight: 500;
+  }
+
+  .notfound-text {
+    margin-top: var(--space-4);
+    color: var(--text-muted);
+  }
+
+  .notfound-links {
+    margin-top: var(--space-6);
+    display: flex;
+    gap: var(--space-5);
+    justify-content: center;
+  }
+
+  .notfound-links a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+</style>

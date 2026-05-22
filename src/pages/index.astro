@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getPublishedPosts } from '../lib/posts';
+import { SITE } from '../consts';
+import { href } from '../lib/url';
+
+const posts = await getPublishedPosts();
+const recent = posts.slice(0, 3);
+---
+
+<BaseLayout>
+  <section class="hero container">
+    <p class="eyebrow">{SITE.role}</p>
+    <h1 class="hero-name">{SITE.author}</h1>
+
+    {/* STUB: edit this bio with your real companies, projects and numbers. */}
+    <div class="hero-bio">
+      <p>
+        I build software at the intersection of rigorous engineering and
+        frontier AI — systems that have to be correct, fast, and genuinely
+        useful at scale. I care as much about the elegance of an abstraction
+        as the millisecond it shaves off a hot path.
+      </p>
+      <p>
+        I've shipped products used by millions, led teams through hard
+        technical bets, and turned research-grade machine learning into
+        dependable production systems. I write here about the problems worth
+        solving — and the craft of solving them well.
+      </p>
+    </div>
+
+    <p class="hero-meta">
+      {/* STUB: update availability / current focus. */}
+      Currently building in software &amp; AI ·{' '}
+      <a href={`mailto:${SITE.email}`}>Get in touch</a>
+    </p>
+  </section>
+
+  <section class="recent container">
+    <div class="recent-head">
+      <h2 class="recent-title">Recent writing</h2>
+      <a class="recent-all" href={href('/blog')}>All writing →</a>
+    </div>
+
+    {
+      recent.length > 0 ? (
+        <div class="post-list">
+          {recent.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </div>
+      ) : (
+        <p class="muted empty">
+          No posts yet. The first article will appear here once published.
+        </p>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-10) var(--space-8);
+  }
+
+  .hero-name {
+    margin-top: var(--space-3);
+    font-family: var(--font-serif);
+    font-size: var(--text-display);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+  }
+
+  .hero-bio {
+    margin-top: var(--space-5);
+    max-width: var(--measure);
+    display: grid;
+    gap: var(--space-4);
+    font-size: var(--text-lg);
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .hero-meta {
+    margin-top: var(--space-6);
+    font-size: var(--text-sm);
+    color: var(--text-faint);
+  }
+
+  .hero-meta a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .recent {
+    padding-block: var(--space-6) var(--space-8);
+  }
+
+  .recent-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .recent-title {
+    font-size: var(--text-xl);
+  }
+
+  .recent-all {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .recent-all:hover {
+    color: var(--accent);
+  }
+
+  .post-list {
+    margin-top: var(--space-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .empty {
+    margin-top: var(--space-5);
+  }
+</style>

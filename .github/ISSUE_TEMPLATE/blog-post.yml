@@ -1,0 +1,55 @@
+name: New blog post
+description: Draft a technical article. Add the "publish" label to publish it.
+title: Your post title here
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Write your article below. When it's ready, add the **`publish`** label
+        to this issue — a workflow converts it into a post and deploys the site.
+
+        The issue **title** becomes the post title. Any non-control **labels**
+        you add become tags.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One or two sentences. Used for post previews, search, and RSS.
+      placeholder: A concise summary of what this article covers.
+    validations:
+      required: true
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Optional comma-separated topics (merged with issue labels).
+      placeholder: ai, systems, performance
+    validations:
+      required: false
+  - type: textarea
+    id: article
+    attributes:
+      label: Article
+      description: >-
+        The full article in Markdown. Fenced code blocks are syntax
+        highlighted. Paste or drag-and-drop images directly — they are
+        downloaded into the site automatically on publish.
+      placeholder: |
+        Your opening paragraph.
+
+        ## A section heading
+
+        Prose, an `inline` snippet, and a fenced block:
+
+        ```ts
+        export const answer = 42;
+        ```
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **To publish:** add the `publish` label. The post goes live after the
+        deploy workflow finishes, and this issue is closed automatically.

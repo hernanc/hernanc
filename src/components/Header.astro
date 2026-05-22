@@ -1,0 +1,83 @@
+---
+import { NAV, SITE } from '../consts';
+import { href, isActive } from '../lib/url';
+import ThemeToggle from './ThemeToggle.astro';
+
+const current = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="wordmark" href={href('/')} aria-label={`${SITE.author} — home`}>
+      {SITE.wordmark}
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      {
+        NAV.map((item) => (
+          <a
+            href={href(item.path)}
+            class:list={['nav-link', { active: isActive(current, item.path) }]}
+            aria-current={isActive(current, item.path) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: saturate(180%) blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.25rem;
+  }
+
+  .wordmark {
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+    transition: color 0.15s ease;
+  }
+
+  .wordmark:hover {
+    color: var(--accent);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .nav-link {
+    padding: 0.4rem 0.65rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--text);
+    background: var(--bg-subtle);
+  }
+
+  .nav-link.active {
+    color: var(--text);
+  }
+</style>

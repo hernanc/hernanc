@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPublishedPosts, type Post } from '../../lib/posts';
+
+const posts = await getPublishedPosts();
+
+const byYear = new Map<number, Post[]>();
+for (const post of posts) {
+  const year = post.data.pubDate.getFullYear();
+  if (!byYear.has(year)) byYear.set(year, []);
+  byYear.get(year)!.push(post);
+}
+const years = [...byYear.keys()].sort((a, b) => b - a);
+---
+
+<BaseLayout
+  title="Writing"
+  description="Technical articles on software engineering, applied AI, and building reliable systems."
+>
+  <section class="page container">
+    <header class="page-head">
+      <p class="eyebrow">Writing</p>
+      <h1 class="page-title">Notes on software, AI, and craft</h1>
+      <p class="page-intro">
+        Long-form articles on engineering problems worth solving — and the
+        thinking behind the solutions.
+      </p>
+    </header>
+
+    {
+      posts.length > 0 ? (
+        years.map((year) => (
+          <section class="year-group">
+            <h2 class="year-label">{year}</h2>
+            <div class="post-list">
+              {byYear.get(year)!.map((post) => (
+                <PostCard post={post} />
+              ))}
+            </div>
+          </section>
+        ))
+      ) : (
+        <p class="muted">
+          No posts yet. New articles are published from GitHub issues — see
+          the README for how the pipeline works.
+        </p>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .page {
+    padding-block: var(--space-8) var(--space-6);
+  }
+
+  .page-title {
+    margin-top: var(--space-3);
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    font-weight: 500;
+    letter-spacing: -0.022em;
+  }
+
+  .page-intro {
+    margin-top: var(--space-4);
+    max-width: var(--measure);
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+  }
+
+  .year-group {
+    margin-top: var(--space-8);
+  }
+
+  .year-label {
+    font-size: var(--text-sm);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: var(--text-faint);
+    letter-spacing: 0.04em;
+  }
+
+  .post-list {
+    margin-top: var(--space-2);
+    border-bottom: 1px solid var(--border);
+  }
+</style>

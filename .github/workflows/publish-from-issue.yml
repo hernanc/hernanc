@@ -1,0 +1,74 @@
+name: Publish post from issue
+
+# Turns a GitHub issue into a blog post. Open an issue with the
+# "New blog post" template, then add the `publish` label to publish it.
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write # commit the generated post
+  issues: write # comment back on the issue
+
+jobs:
+  publish:
+    # Only run when the `publish` label is added.
+    if: github.event.label.name == 'publish'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Convert issue to a post
+        id: convert
+        env:
+          ISSUE_PAYLOAD: ${{ toJSON(github.event.issue) }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/issue-to-post.mjs
+
+      - name: Commit the post
+        run: |
+          git config user.name "blog-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/blog src/assets/posts
+          git commit -m "post: ${{ steps.convert.outputs.title }} (#${{ github.event.issue.number }})"
+          git push origin main
+
+      - name: Comment on the issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const slug = process.env.SLUG;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: [
+                '✅ Published.',
+                '',
+                'The post was committed to `main` and the deploy workflow will',
+                'make it live shortly at `/blog/' + slug + '`.',
+              ].join('\n'),
+            });
+            // Remove the label so editing the issue doesn't re-publish.
+            await github.rest.issues.removeLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              name: 'publish',
+            }).catch(() => {});
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'closed',
+            });
+        env:
+          SLUG: ${{ steps.convert.outputs.slug }}

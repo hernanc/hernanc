@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" font-family="Helvetica, Arial, sans-serif">
+  <rect width="800" height="320" rx="16" fill="#faf9f7" stroke="#e8e6e0" />
+  <text x="40" y="50" font-size="18" font-weight="bold" fill="#1c1c19">The evaluation loop</text>
+
+  <g>
+    <rect x="56" y="110" width="156" height="66" rx="10" fill="#ffffff" stroke="#d8d5cc" />
+    <text x="134" y="149" font-size="15" fill="#1c1c19" text-anchor="middle">Eval dataset</text>
+
+    <rect x="322" y="110" width="156" height="66" rx="10" fill="#ffffff" stroke="#d8d5cc" />
+    <text x="400" y="149" font-size="15" fill="#1c1c19" text-anchor="middle">Run system</text>
+
+    <rect x="588" y="110" width="156" height="66" rx="10" fill="#fdeee9" stroke="#c1553b" />
+    <text x="666" y="149" font-size="15" fill="#1c1c19" text-anchor="middle">Score &amp; grade</text>
+
+    <rect x="322" y="232" width="156" height="60" rx="10" fill="#ffffff" stroke="#d8d5cc" />
+    <text x="400" y="268" font-size="15" fill="#1c1c19" text-anchor="middle">Change one thing</text>
+  </g>
+
+  <g stroke="#6b6a62" stroke-width="2" fill="none">
+    <path d="M212 143 H318" marker-end="url(#c)" />
+    <path d="M478 143 H584" marker-end="url(#c)" />
+    <path d="M666 176 V262 H482" marker-end="url(#c)" />
+    <path d="M322 262 H214 V176" marker-end="url(#c)" />
+  </g>
+
+  <defs>
+    <marker id="c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#6b6a62" />
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, SOCIALS } from '../consts';
+
+// STUB: this page is polished placeholder copy. Replace the bracketed
+// specifics and the "Selected work" list with your real details.
+const selectedWork = [
+  {
+    title: 'STUB — Flagship project',
+    note: 'A short, concrete line: what it did and the scale it ran at.',
+  },
+  {
+    title: 'STUB — AI system',
+    note: 'Research-grade ML taken to dependable production.',
+  },
+  {
+    title: 'STUB — Open source / writing',
+    note: 'A library, tool, or talk you are known for.',
+  },
+];
+---
+
+<BaseLayout
+  title="About"
+  description={`About ${SITE.author} — software and AI engineer.`}
+>
+  <section class="about">
+    <header class="about-head">
+      <p class="eyebrow">About</p>
+      <h1 class="about-name">{SITE.author}</h1>
+    </header>
+
+    <div class="about-body">
+      <p class="lead">
+        I'm a software and AI engineer who builds systems where rigorous
+        engineering meets frontier machine intelligence.
+      </p>
+
+      <p>
+        My work spans distributed systems, applied machine learning, and the
+        developer tooling in between. I've taken products from a blank
+        repository to something used by millions, owned services where
+        correctness and latency are non-negotiable, and helped teams make —
+        and survive — hard technical bets. I'm equally at home in a design
+        review arguing about an interface and in a profiler chasing a
+        regression.
+      </p>
+
+      <p>
+        What I care about is craft: software that is correct, fast, and a
+        pleasure to extend. I believe the best systems are the ones a new
+        engineer can understand in an afternoon, and that taste in
+        engineering is a skill you can practice. This site is where I write
+        about that practice.
+      </p>
+
+      <h2 class="about-section">Selected work</h2>
+      <ul class="work-list">
+        {
+          selectedWork.map((item) => (
+            <li class="work-item">
+              <span class="work-title">{item.title}</span>
+              <span class="work-note">{item.note}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h2 class="about-section">Elsewhere</h2>
+      <ul class="elsewhere">
+        {
+          SOCIALS.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                rel={link.href.startsWith('mailto:') ? undefined : 'me noopener'}
+                target={link.href.startsWith('mailto:') ? undefined : '_blank'}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about {
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    padding-block: var(--space-8) var(--space-10);
+  }
+
+  .about-name {
+    margin-top: var(--space-3);
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    font-weight: 500;
+    letter-spacing: -0.022em;
+  }
+
+  .about-body {
+    margin-top: var(--space-6);
+  }
+
+  .about-body > * + * {
+    margin-top: var(--space-5);
+  }
+
+  .lead {
+    font-size: var(--text-lg);
+    line-height: 1.55;
+    color: var(--text);
+  }
+
+  .about-body p {
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .about-section {
+    font-size: var(--text-lg);
+    margin-top: var(--space-8);
+  }
+
+  .work-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .work-item {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-subtle);
+  }
+
+  .work-title {
+    font-weight: 600;
+  }
+
+  .work-note {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .elsewhere {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+  }
+
+  .elsewhere a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-color: var(--accent-soft);
+  }
+
+  .elsewhere a:hover {
+    text-decoration-color: var(--accent);
+  }
+</style>

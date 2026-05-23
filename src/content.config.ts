@@ -10,7 +10,7 @@ const blog = defineCollection({
     z.object({
       title: z.string(),
       description: z.string(),
-      // Publication date — shown on every post.
+      // Publication date, shown on every post.
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
       tags: z.array(z.string()).default([]),

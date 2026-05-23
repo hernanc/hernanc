@@ -6,16 +6,16 @@ export const SITE = {
   /** Full name for titles, RSS, structured data. */
   author: 'Hernán Calabrese',
   /** One-line role, shown under the name on the home hero. */
-  role: 'Software & AI Engineer',
+  role: 'Backend & Infrastructure Engineer',
   /** Used for <title> suffix and metadata. */
   title: 'Hernán Calabrese',
   /** Default meta description / RSS channel description. */
   description:
-    'Technical writing on software engineering, applied AI, and the craft of building reliable systems — by Hernán Calabrese.',
+    'Notes on backend services, cloud infrastructure, and keeping software healthy in production, by Hernán Calabrese.',
   email: 'hernancalabrese@gmail.com',
 };
 
-// Primary navigation. `path` is relative — `href()` adds the base path.
+// Primary navigation. `path` is relative, `href()` adds the base path.
 export const NAV: { label: string; path: string }[] = [
   { label: 'Writing', path: '/blog' },
   { label: 'About', path: '/about' },

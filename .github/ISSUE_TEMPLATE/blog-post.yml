@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         Write your article below. When it's ready, add the **`publish`** label
-        to this issue — a workflow converts it into a post and deploys the site.
+        to this issue, a workflow converts it into a post and deploys the site.
 
         The issue **title** becomes the post title. Any non-control **labels**
         you add become tags.
@@ -33,7 +33,7 @@ body:
       label: Article
       description: >-
         The full article in Markdown. Fenced code blocks are syntax
-        highlighted. Paste or drag-and-drop images directly — they are
+        highlighted. Paste or drag-and-drop images directly, they are
         downloaded into the site automatically on publish.
       placeholder: |
         Your opening paragraph.

@@ -3,6 +3,9 @@ import { SITE, SOCIALS } from '../consts';
 import { href } from '../lib/url';
 
 const year = new Date().getFullYear();
+const footerLinks = SOCIALS.filter(
+  (link) => link.label !== 'X' && link.label !== 'Email',
+);
 ---
 
 <footer class="site-footer">
@@ -13,12 +16,12 @@ const year = new Date().getFullYear();
 
     <nav class="footer-links" aria-label="Social">
       {
-        SOCIALS.map((link) => (
+        footerLinks.map((link) => (
           <a
             href={link.href}
             class="footer-link"
-            rel={link.href.startsWith('mailto:') ? undefined : 'me noopener'}
-            target={link.href.startsWith('mailto:') ? undefined : '_blank'}
+            rel="me noopener"
+            target="_blank"
           >
             {link.label}
           </a>
